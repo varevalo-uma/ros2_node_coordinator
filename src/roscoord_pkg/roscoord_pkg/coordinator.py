@@ -162,7 +162,7 @@ class Coordinator(Node):
         self.get_logger().info('All nodes acknowledged the stop command.')
         self.timer.cancel()
         # Request shutdown on this node context so spin() can exit cleanly.
-        self.context.try_shutdown()
+        rclpy.shutdown()
 
     def _load_config_parameter(self) -> dict[str, Any]:
         """Parse the JSON configuration stored in the parameter server."""
@@ -319,7 +319,7 @@ def main(args=None) -> None:
         rclpy.spin(node)
     finally:
         node.destroy_node()
-        node.context.try_shutdown()
+        rclpy.shutdown()
 
 
 if __name__ == '__main__':
